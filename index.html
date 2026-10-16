@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>ShoSVG</title>
+
+    <!--
+        Emergency inline fallback: sets the flat #181818 background BEFORE
+        style.css has had a chance to load/parse, so the CEF webview never
+        shows its own default white for even a single frame. Matches the
+        hardcoded body rule in style.css exactly — no gradient, no image,
+        same value in both places.
+    -->
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #181818; background-image: none; }
+    </style>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <button
+        id="btnPaste"
+        type="button"
+        class="paste-btn"
+        title="Click: paste the clipboard SVG as one merged shape layer.&#10;Alt-click or Shift-click: paste as separate shape layers, one per element."
+    >
+        <span class="paste-btn__icons" aria-hidden="true">
+
+            <!-- Wordmark — viewBox matches svg.svg (0 0 24 24), stroke-only, unchanged path data.
+                 fill="none" so fill-rule has no visible effect here, but it's set anyway for
+                 consistency across all paths in this file. -->
+            <svg class="icon icon--wordmark" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path
+                    d="M21 8h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v-4h-1M7 8H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H3m7-8l1.5 8h1L14 8"
+                    fill="none"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+
+            <!--
+                Paste glyph — its own standalone <svg>, viewBox EXACTLY "0 0 512 512" (matches
+                paste.svg 1:1, no distortion/cropping) — a separate coordinate system from the
+                wordmark's 0 0 24 24 above. Split into two <path> elements so board and paper
+                can be colored independently on hover.
+
+                Board path: unchanged, matches the traced source exactly.
+
+                Paper path: its anchor point is "M448 464" — NOT the "M408.6 456" figure from
+                the last spec. That value was re-derived here with a real SVG path tracer run
+                against the full original combined single-path d (both subpaths' Z-closures
+                verified to land back exactly on their own start point with zero residual —
+                i.e. no stray diagonal seam). "M408.6 456" does not close either subpath and
+                was producing the broken/torn-looking paper shape. "M448 464" is confirmed
+                correct against the source geometry.
+
+                fill-rule="evenodd" AND clip-rule="evenodd" are set on every path (the former
+                governs normal fills, the latter covers the same path if anything ever
+                references it as a clip source) — this is what turns each path's second
+                subpath into an actual punched-out hole (the clip's knob-hole; the paper's
+                fold-corner cutout) instead of solid fill covering the whole shape.
+            -->
+            <svg class="icon icon--paste" viewBox="0 0 512 512" focusable="false" aria-hidden="true">
+                <path
+                    class="icon__board"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M104.6 48H64C28.7 48 0 76.7 0 112v272c0 35.3 28.7 64 64 64h96v-48H64c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16h16c0 17.7 14.3 32 32 32h72.4c17.6-19.6 43.2-32 71.6-32h62c-7.1-27.6-32.2-48-62-48h-40.6C211.6 20.9 188.2 0 160 0s-51.6 20.9-55.4 48zm39.4 8a16 16 0 1 1 32 0a16 16 0 1 1-32 0z"
+                />
+                <path
+                    class="icon__paper"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M448 464H256c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h140.1l67.9 67.9V448c0 8.8-7.2 16-16 16zm-192 48h192c35.3 0 64-28.7 64-64V243.9c0-12.7-5.1-24.9-14.1-33.9L430 142.1c-9-9-21.2-14.1-33.9-14.1H256c-35.3 0-64 28.7-64 64v256c0 35.3 28.7 64 64 64z"
+                />
+            </svg>
+
+        </span>
+
+        <span class="paste-btn__credit" aria-hidden="true">sho</span>
+    </button>
+
+    <!--
+        The original CSInterface.js from Adobe, added manually by sho.
+        main.js assumes `new CSInterface()` is globally available and does
+        NOT create or mock this file.
+    -->
+    <script src="js/CSInterface.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
