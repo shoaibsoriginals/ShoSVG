@@ -1,41 +1,39 @@
 # ShoSVG
 
-ShoSVG is a free CEP extension for Adobe After Effects. It reads SVG markup from the clipboard and converts it into editable After Effects shape layers.
+I made ShoSVG for one simple job: copy SVG artwork from Figma and bring it into After Effects as editable shape layers—without paying for a larger transfer plugin.
 
-## Download
+Overlord by Battle Axe is a paid tool with a broader Figma-to-After-Effects workflow. ShoSVG is my free, focused alternative for clipboard SVG: copy your artwork as SVG, click ShoSVG in After Effects, and keep working with vector shapes. It does not try to replace all of Overlord’s features.
 
-Download and extract [ShoSVG-CEP-Release-EN.zip](release/ShoSVG-CEP-Release-EN.zip). The archive contains the installable `ShoSVG` extension folder.
+[See Overlord’s official site](https://battleaxe.co/overlord)
+
+## What ShoSVG does
+
+- Import SVG markup copied from Figma or a web page.
+- Create editable After Effects shape layers.
+- Choose one merged layer, or hold **Alt/Option** or **Shift** while clicking to create separate layers in SVG paint order.
+- Use ShoSVG for free under the MIT License—no subscription or license key.
+
+On Windows, ShoSVG can also read SVG copied from a browser as an HTML element. Copying a screenshot or raster image will not create editable vector paths.
 
 ## Install
 
 1. Close After Effects.
-2. Extract the ZIP file.
+2. Download and extract [ShoSVG-CEP-Release-EN.zip](https://github.com/shoaibsoriginals/ShoSVG/raw/refs/heads/main/release/ShoSVG-CEP-Release-EN.zip).
 3. Copy the extracted `ShoSVG` folder into the CEP extensions directory:
    - **Windows:** `%APPDATA%\Adobe\CEP\extensions\`
    - **macOS:** `~/Library/Application Support/Adobe/CEP/extensions/`
 4. Start After Effects and open **Window > Extensions > ShoSVG**.
 
-ShoSVG is an unsigned CEP extension. If After Effects does not load it, enable `PlayerDebugMode` for the CSXS runtime version declared in `CSXS/manifest.xml` (currently CSXS 9.0), then restart After Effects:
+ShoSVG is an unsigned CEP extension. If After Effects does not load it, enable `PlayerDebugMode` for the CSXS runtime version in `CSXS/manifest.xml` (currently CSXS 9.0), then restart After Effects:
 
 - **Windows:** Set the string value `PlayerDebugMode` to `1` under `HKEY_CURRENT_USER\Software\Adobe\CSXS.9`.
 - **macOS:** Run `defaults write com.adobe.CSXS.9 PlayerDebugMode 1` in Terminal.
 
-## Use
-
-Copy an SVG element or SVG markup in Figma or a browser, then click the ShoSVG panel button.
-
-- **Normal click:** Create one merged shape layer.
-- **Alt-click or Shift-click:** Create separate shape layers in SVG paint order.
-
-On Windows, ShoSVG reads both plain text and the native HTML clipboard format used by browsers for copied SVG elements. A raster-only clipboard image cannot be converted into editable vector paths.
-
 ## SVG support
 
-ShoSVG supports common paths and basic shapes, groups, transforms, colors, fills, strokes, `viewBox` sizing, and SVG document paint order. SVG is a broad format, so text, gradients, masks, clip paths, filters, embedded images, and other advanced features may be skipped or differ from browser rendering.
+ShoSVG handles common paths and shapes, groups, transforms, fills, strokes, `viewBox` sizing, and SVG paint order. SVG features such as text, gradients, masks, clip paths, filters, and embedded images may be skipped or look different in After Effects.
 
-## Host source
-
-The ExtendScript host engine is shipped as `jsx/host.jsxbin`; its plaintext source is not included. JSXBIN makes casual inspection harder, but it is not encryption and cannot guarantee protection from reverse engineering. The CEP panel file `js/main.js` remains readable JavaScript.
+ShoSVG is an independent project and is not affiliated with Battle Axe or Overlord.
 
 ## License
 

@@ -1,23 +1,9 @@
-/* ============================================================================
-   ShoSVG — CEP Panel Styles
-   Native-ScriptUI look, matching ShoAlign: a plain AE-gray window background
-   with a bordered, rounded, inset "card" as the actual clickable surface —
-   not a full-bleed edge-to-edge button anymore.
-
-   THEME: two flat, hardcoded colors, no gradients, no background-images,
-   nothing dynamic. <body> = #232323 (the AE-window backdrop, visible only
-   as the 4px gutter around the card). .paste-btn = #181818 !important (the
-   clickable card itself). Neither changes on hover — see the hover rules
-   below, which only ever touch icon fill/stroke colors, never a
-   background.
-   ============================================================================ */
-
 :root {
     --shosvg-wordmark-rest: rgb(191, 191, 191);
     --shosvg-wordmark-hover: #ffffff;
 
     --shosvg-board-rest: rgb(115, 115, 115);
-    --shosvg-board-hover: rgb(43, 217, 168);   /* teal accent — kept off ShoAlign's orange */
+    --shosvg-board-hover: rgb(43, 217, 168);
 
     --shosvg-paper-rest: rgb(217, 217, 217);
     --shosvg-paper-hover: #ffffff;
@@ -25,10 +11,6 @@
     --shosvg-credit-color: rgba(255, 255, 255, 0.3);
 }
 
-/* AE-standard window gray. This is the outer backdrop only — it shows as
-   the ~1.5px gutter around the card below, and (via the matching inline
-   <style> in index.html's <head>) is what's on screen even before this
-   file has loaded, so there's never a white/mismatched flash. */
 html,
 body {
     margin: 0 !important;
@@ -47,16 +29,6 @@ body {
     box-sizing: border-box;
 }
 
-/* ----------------------------------------------------------------------
-   The clickable card. Inset by margin: 2px on every side (tightened again
-   to close up the visible gap under the panel's tab strip), sized to the
-   panel via height: calc(100vh - 4px) (2px top + 2px bottom) and
-   width: calc(100% - 4px) (2px left + 2px right — mirrors the same
-   margin math on the horizontal axis, kept in sync with the height calc
-   above). border + border-radius give it the native-panel "card" look;
-   overflow:hidden clips the ::before overlay below to those rounded
-   corners instead of poking out square-cornered.
-   ---------------------------------------------------------------------- */
 .paste-btn {
     position: relative;
     display: flex;
@@ -77,12 +49,6 @@ body {
     -webkit-app-region: no-drag;
 }
 
-/* Flat, constant darkening overlay — the CSS equivalent of the original's
-   g.drawOSControl() + an 18%-black rectPath on top. Intentionally has NO
-   :hover variant: the background must never get lighter (or otherwise
-   change) on hover. Only :active (an actual press) darkens it further, as
-   real tactile click feedback — that's a different, wanted interaction,
-   not a hover effect. */
 .paste-btn::before {
     content: '';
     position: absolute;
@@ -105,13 +71,6 @@ body {
     pointer-events: none;
 }
 
-/* ----------------------------------------------------------------------
-   Icons — shared flex row centering both SVGs: [ wordmark ] gap [ paste
-   glyph ]. The two icons have DIFFERENT native viewBoxes (24x24 vs
-   512x512) so they're each given their own fixed height + width:auto
-   below, tuned so they read as the same optical weight rather than a
-   numerically equal height.
-   ---------------------------------------------------------------------- */
 .paste-btn__icons {
     position: relative;
     z-index: 1;
@@ -128,29 +87,19 @@ body {
     overflow: visible;
 }
 
-/* Wordmark: 24x24 viewBox. Sized noticeably larger than the paste glyph —
-   at a numerically equal (or even moderately larger) height it still
-   reads as too small next to it, so it gets pushed up further here. */
 .icon--wordmark {
     height: 34px;
 }
 
-/* Paste glyph: 512x512 viewBox, finer detail. */
 .icon--paste {
     height: 24px;
 }
 
-/* Reinforces the fill-rule="evenodd"/clip-rule="evenodd" attributes already
-   set on every <path> in index.html, so the clip's round knob-hole and the
-   paper's fold-corner cutout render as actual holes rather than solid fill,
-   even if something else in the embedding page ever overrides presentation
-   attributes at the CSS layer. */
 .icon path {
     fill-rule: evenodd;
     clip-rule: evenodd;
 }
 
-/* Wordmark: neutral light gray at rest, bright white on hover. */
 .icon--wordmark path {
     stroke: var(--shosvg-wordmark-rest);
     transition: stroke 120ms ease-out;
@@ -160,12 +109,6 @@ body {
     stroke: var(--shosvg-wordmark-hover);
 }
 
-/* Paste glyph: board and paper are colored separately so the icon reads as
-   two layered pieces instead of one flat blob. Board sits behind and is
-   deliberately darker; on hover it takes the teal accent. Paper sits in
-   front, stays light/neutral, brightens to white on hover. These are icon
-   fill colors, not background colors — unaffected by the "no hover
-   background change" rule above. */
 .icon__board {
     fill: var(--shosvg-board-rest);
     transition: fill 120ms ease-out;
@@ -184,18 +127,10 @@ body {
     fill: var(--shosvg-paper-hover);
 }
 
-/* Busy state: icons dim to 40% alpha (matches ICON_*_HOVER/REST * 0.4 in
-   the original onDraw), everything else about them stays as-is. The
-   credit text is intentionally NOT touched — same as the original, where
-   CREDIT_COLOR's alpha was never multiplied by the busy dimming. */
 .paste-btn.is-busy .paste-btn__icons {
     opacity: 0.4;
 }
 
-/* ----------------------------------------------------------------------
-   "sho" credit, bottom right, 30% opacity — ScriptUI.newFont('dialog',
-   REGULAR, 9) approximated with a system UI font stack.
-   ---------------------------------------------------------------------- */
 .paste-btn__credit {
     position: absolute;
     z-index: 1;
@@ -210,3 +145,4 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
+

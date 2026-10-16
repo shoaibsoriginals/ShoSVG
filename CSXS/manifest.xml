@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest Version="7.0" ExtensionBundleId="com.sho.shosvg" ExtensionBundleVersion="1.0.0" ExtensionBundleName="ShoSVG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <!--
-        ExtensionBundleId / Extension Id are placeholders in sho's own
-        reverse-DNS namespace — adjust to taste before packaging (ZXP/signing),
-        just keep them consistent with each other and with the folder this
-        manifest ships inside of (CSXS/manifest.xml one level below the
-        extension's own root, next to index.html / css / js / jsx).
-    -->
+
     <ExtensionList>
         <Extension Id="com.sho.shosvg.panel" Version="1.0.0" />
     </ExtensionList>
 
     <ExecutionEnvironment>
         <HostList>
-            <!-- After Effects. Version range is intentionally wide — narrow
-                 it to whatever versions you actually test against. -->
+
             <Host Name="AEFT" Version="[15.0,99.9]" />
         </HostList>
         <LocaleList>
@@ -31,15 +24,7 @@
                 <Resources>
                     <MainPath>./index.html</MainPath>
                     <ScriptPath>./jsx/host.jsxbin</ScriptPath>
-                    <!--
-                        Required for main.js's require('child_process') to work at all.
-                        The enable-nodejs flag turns on CEP's bundled Node.js runtime for
-                        this panel; the mixed-context flag keeps DOM/window access alongside
-                        it (without it, Node and the browser context are separate and the
-                        panel's button/CSS/DOM code would stop working). Both flags together
-                        are the standard CEP pattern for using Node core modules directly
-                        from panel JS.
-                    -->
+
                     <CEFCommandLine>
                         <Parameter>--enable-nodejs</Parameter>
                         <Parameter>--mixed-context</Parameter>
@@ -70,3 +55,4 @@
         </Extension>
     </DispatchInfoList>
 </ExtensionManifest>
+
