@@ -1,19 +1,10 @@
 # ShoSVG
 
-I made ShoSVG for one simple job: copy SVG artwork from Figma and bring it into After Effects as editable shape layers—without paying for a larger transfer plugin.
+I built ShoSVG because bringing an SVG from Figma into After Effects should be quick and should not require paying for another tool.
 
-Overlord by Battle Axe is a paid tool with a broader Figma-to-After-Effects workflow. ShoSVG is my free, focused alternative for clipboard SVG: copy your artwork as SVG, click ShoSVG in After Effects, and keep working with vector shapes. It does not try to replace all of Overlord’s features.
+Copy your artwork as SVG, open ShoSVG in After Effects, and click the button. Your artwork becomes editable shape layers, ready to animate. Use a normal click for one merged shape layer, or hold **Alt/Option** or **Shift** while clicking to create separate layers in SVG paint order.
 
-[See Overlord’s official site](https://battleaxe.co/overlord)
-
-## What ShoSVG does
-
-- Import SVG markup copied from Figma or a web page.
-- Create editable After Effects shape layers.
-- Choose one merged layer, or hold **Alt/Option** or **Shift** while clicking to create separate layers in SVG paint order.
-- Use ShoSVG for free under the MIT License—no subscription or license key.
-
-On Windows, ShoSVG can also read SVG copied from a browser as an HTML element. Copying a screenshot or raster image will not create editable vector paths.
+Adobe already charges for the creative tools many of us rely on. I wanted to give the motion-design community a practical little tool without adding another paywall to this workflow. ShoSVG is free to use, with no subscription or license key. If it helps you, use it, share it, and pass it along.
 
 ## Install
 
@@ -33,7 +24,7 @@ ShoSVG is an unsigned CEP extension. If After Effects does not load it, enable `
 
 ShoSVG handles common paths and shapes, groups, transforms, fills, strokes, `viewBox` sizing, and SVG paint order. SVG features such as text, gradients, masks, clip paths, filters, and embedded images may be skipped or look different in After Effects.
 
-ShoSVG is an independent project and is not affiliated with Battle Axe or Overlord.
+On Windows, ShoSVG can also read SVG copied from a browser as an HTML element. Copying a screenshot or raster image will not create editable vector paths.
 
 ## License
 
